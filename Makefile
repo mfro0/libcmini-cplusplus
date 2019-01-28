@@ -6,6 +6,7 @@ TOOLCHAIN_PREFIX=m68k-atari-mint
 CXX=$(TOOLCHAIN_PREFIX)-c++
 
 TARGET=mini++.prg
+TARGETM=miniml.prg
 
 SRCS= \
 	main.cc
@@ -28,6 +29,10 @@ all: $(TARGET)
 $(TARGET):$(OBJS)
 	echo $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
+
+# link with mintlib for comparision
+$(TARGETM):$(OBJS)
+	$(CXX) -o $@ $(OBJS)
 
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@

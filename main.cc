@@ -23,15 +23,24 @@ namespace {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
-        static constexpr size_t SIZE = 32000 / sizeof(uint16_t);
+        static constexpr size_t SIZE = 32000;
 
         uint32_t scr1;
         uint32_t scr2;
+        int active;
 
         void (*blank_routine)(void);
 
-        AtariScreen() { blank_routine = 0L; scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase()); }
-        AtariScreen(uint16_t* second_screen) { AtariScreen(); scr2 = reinterpret_cast<uint32_t>(second_screen); }
+        AtariScreen() {
+            active = 0;
+            blank_routine = 0L;
+            scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase());
+        }
+
+        AtariScreen(uint16_t* second_screen) {
+            AtariScreen();
+            scr2 = reinterpret_cast<uint32_t>(second_screen);
+        }
         
         void vblank(void) __attribute__((interrupt))
         {
@@ -49,81 +58,58 @@ namespace {
         }
 
         void flip()
-        {
-            static int active = 0;
-            
+        {   
             active = !active;
             if (active)
-                Setscreen(scr2, scr1, -1);
-            
+                while ((uint32_t) Logbase() != scr2 || (uint32_t) Physbase() != scr1)
+                    Setscreen(scr2, scr1, -1);            
             else
-                Setscreen(scr1, scr2, -1);
-            
-            printf("active = %d\r\n", active);
+                while ((uint32_t) Logbase() != scr1 || (uint32_t) Physbase() != scr2)
+                    Setscreen(scr1, scr2, -1);
+            // printf("flip (%d)\r\n", active);
         }
 
         void clear()
         {
-            for (int i = 0; i < SIZE / 2; i++)
-                ; //memory(address() + i) = 0;
+            memset((char *) scr1, 0, SIZE);
         }
 
         void set()
         {
-            for (int i = 0; i < SIZE / 2; i++)
-                ;// memory(address() + i) = 0xffff;
+            memset((char *) scr1, 0xffffffff, SIZE);
         }
-    };
 
-    class tst
-    {
-            int val;    
-        public:
-            tst(int i) { val = i; };
-            ~tst() { ; };
-            int getvalue(void) { return val; }
+        void cleanup(void)
+        {
+            while ((uint32_t) Logbase() != scr1 || (uint32_t) Physbase() != scr1)
+                Setscreen(scr1, scr1, -1);
+        }
     };
 }
 
-// ensure global constructors are called
-tst mytest(42);
-
 void anim(void)
 {
-    constexpr int SCREEN_SIZE = 32000;
+    constexpr size_t SCREEN_SIZE = 64 * 1024;
 
-    uint8_t *screen1 = new uint8_t[SCREEN_SIZE + 256];
+    uint8_t *screen1[SCREEN_SIZE + 256];
+
 
     // adjust to a suitable address on a 256 bytes boundary
-    uint16_t *vscreen = reinterpret_cast<uint16_t *>((reinterpret_cast<long>(screen1) + 256UL) & 0xffffff00);
-
-    printf("vscreen now: 0x%lx\r\n", vscreen);
+    uint16_t *vscreen = (uint16_t *) (((long) screen1 + 256UL) & 0xffffff00);
+    memset(vscreen, 0, SCREEN_SIZE);
 
     AtariScreen screen(vscreen);
 
-    // old_screen = screen.address();
-
-
-    // screen.set_address(reinterpret_cast<uint32_t>(vscreen));
-
-    /*
-    for (int i = 0; i < 100; i++)
-    {
-        if (i & 1)
-            screen.clear();
-        else
-            screen.set();
-    }
-    */
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 10; i++)
         screen.flip();
 
     while (Cconis())
         Cconin();
     Cconws("press ANY key"); (void) Cconin();
 
-    delete screen1;
-    // screen.set_address(old_screen);
+    screen.cleanup();
+    
+    delete (uint8_t *) screen1;
 }
 
 int main()
