@@ -30,6 +30,9 @@ $(TARGET):$(OBJS)
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@
 
+.PHONY: clean
+clean:
+	- rm -f $(OBJS) $(TARGET)
 
 .PHONY: printvars
 printvars:
