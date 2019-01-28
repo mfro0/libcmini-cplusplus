@@ -16,10 +16,12 @@ CXXFLAGS=-fomit-frame-pointer \
 	-O2 \
 	-std=c++0x \
 	-nostdlib \
-	-s
+	-g
 
 
-LDFLAGS=-L$(LIBCMINI_LIB) -lcmini -lgcc
+# for the global constructors to be called, we need to link libgcc twice
+# since __main() resides in libgcc.
+LDFLAGS=-lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc
 
 all: $(TARGET)
 
