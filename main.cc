@@ -20,17 +20,19 @@ namespace {
         return *reinterpret_cast<uint8_t *>(loc);
     }
 
-    class AtariScreen
+    struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
         static constexpr size_t SIZE = 32000 / sizeof(uint16_t);
 
         uint32_t scr1;
         uint32_t scr2;
+
         void (*blank_routine)(void);
 
-    public:
-        AtariScreen() { blank_routine = 0L; }
+        AtariScreen() { blank_routine = 0L; scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase()); }
+        AtariScreen(uint16_t* second_screen) { AtariScreen(); scr2 = reinterpret_cast<uint32_t>(second_screen); }
+        
         void vblank(void) __attribute__((interrupt))
         {
             if (blank_routine != NULL)
@@ -48,8 +50,16 @@ namespace {
 
         void flip()
         {
-            Getscreen(&scr1, &scr2, -1);
-            Setscreen(scr2, scr1, -1);
+            static int active = 0;
+            
+            active = !active;
+            if (active)
+                Setscreen(scr2, scr1, -1);
+            
+            else
+                Setscreen(scr1, scr2, -1);
+            
+            printf("active = %d\r\n", active);
         }
 
         void clear()
@@ -80,26 +90,21 @@ tst mytest(42);
 
 void anim(void)
 {
-    constexpr int SCREEN_SIZE_WORDS = 32000 / 2;
+    constexpr int SCREEN_SIZE = 32000;
 
-    uint16_t screen1[SCREEN_SIZE_WORDS + 128] = {0};
+    uint8_t *screen1 = new uint8_t[SCREEN_SIZE + 256];
 
-    // align to a suitable address on a 256 bytes boundary
-    uint16_t *vscreen = reinterpret_cast<uint16_t *>((reinterpret_cast<long>(screen1) + 256UL) & 0xffff00);
-    uint32_t old_screen;
+    // adjust to a suitable address on a 256 bytes boundary
+    uint16_t *vscreen = reinterpret_cast<uint16_t *>((reinterpret_cast<long>(screen1) + 256UL) & 0xffffff00);
 
     printf("vscreen now: 0x%lx\r\n", vscreen);
 
-    AtariScreen screen;
+    AtariScreen screen(vscreen);
 
-    old_screen = screen.address();
+    // old_screen = screen.address();
 
-    printf("address was 0x%lx, set to 0x%lx now\r\n",
-           old_screen,
-           reinterpret_cast<uint32_t>(vscreen));
-    
 
-    screen.set_address(reinterpret_cast<uint32_t>(vscreen));
+    // screen.set_address(reinterpret_cast<uint32_t>(vscreen));
 
     /*
     for (int i = 0; i < 100; i++)
@@ -110,8 +115,15 @@ void anim(void)
             screen.set();
     }
     */
+    for (int i = 0; i < 100; i++)
+        screen.flip();
 
-    screen.set_address(old_screen);
+    while (Cconis())
+        Cconin();
+    Cconws("press ANY key"); (void) Cconin();
+
+    delete screen1;
+    // screen.set_address(old_screen);
 }
 
 int main()
