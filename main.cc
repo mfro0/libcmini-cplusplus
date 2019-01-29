@@ -34,14 +34,14 @@ namespace {
         AtariScreen() {
             active = 0;
             blank_routine = 0L;
-            scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase());
+            scr1 = scr2 = physbase();
         }
 
         AtariScreen(uint32_t second_screen) : scr2(second_screen),
                                               active(0),
-                                              blank_routine(0L)
+                                              blank_routine(0L),
+                                              scr1(physbase())
         {
-            scr1 = reinterpret_cast<uint32_t>(Physbase());
             printf("screen address = 0x%lx, 0x%lx\r\n", scr1, scr2);
         }
         
@@ -60,14 +60,22 @@ namespace {
             return blank_routine;
         }
 
+        static uint32_t logbase(void){
+            return reinterpret_cast<uint32_t>(Logbase());
+        }
+
+        static uint32_t physbase(void){
+            return reinterpret_cast<uint32_t>(Physbase());
+        }
+
         void flip()
         {   
             active = !active;
             if (active)
-                while ((uint32_t) Logbase() != scr2 || (uint32_t) Physbase() != scr1)
+                while ((logbase() != scr2) || (physbase() != scr1))
                     Setscreen(scr2, scr1, -1);            
             else
-                while ((uint32_t) Logbase() != scr1 || (uint32_t) Physbase() != scr2)
+                while ((logbase() != scr1) || (physbase() != scr2))
                     Setscreen(scr1, scr2, -1);
             printf("flip (%d)\r\n", active);
         }
@@ -84,7 +92,7 @@ namespace {
 
         void cleanup(void)
         {
-            while ((uint32_t) Logbase() != scr1 || (uint32_t) Physbase() != scr1)
+            while ((logbase() != scr1) || (physbase() != scr1))
                 Setscreen(scr1, scr1, -1);
         }
     };
