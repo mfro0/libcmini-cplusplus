@@ -8,6 +8,7 @@ CXX=$(TOOLCHAIN_PREFIX)-c++
 DEPEND=depend 
 
 STACK=$(TOOLCHAIN_PREFIX)-stack 
+STACKSIZE=256K
 
 TARGET=mini++.prg
 TARGETM=miniml.prg
@@ -33,13 +34,13 @@ all: $(TARGET)
 
 $(TARGET):$(OBJS)
 	echo $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
-	$(STACK) -S 2M $(TARGET)
+	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $? $(LDFLAGS) -o $@ 
+	$(STACK) -S $(STACKSIZE) $(TARGET)
 
 # link with mintlib for comparision
 $(TARGETM):$(OBJS)
-	$(CXX) -o $@ $(OBJS)
-	$(STACK) -S 2M $(TARGETM)
+	$(CXX) -o $@ $?
+	$(STACK) -S $(STACKSIZE) $@
 
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@
@@ -48,9 +49,12 @@ $(TARGETM):$(OBJS)
 clean:
 	- rm -f $(OBJS) $(TARGET) $(DEPEND)
 
+strip: $(TARGET) $(TARGETM)
+	$(TOOLCHAIN_PREFIX)-strip $?
+
 $(DEPEND): $(SRCS)
 	- rm -f $(DEPEND)
-	$(CXX) $(CXXFLAGS) -I$(LIBCMINI_INCLUDE) -M $(SRCS) >> $(DEPEND)
+	$(CXX) $(CXXFLAGS) -I$(LIBCMINI_INCLUDE) -M $? >> $(DEPEND)
 
 .PHONY: printvars
 printvars:
