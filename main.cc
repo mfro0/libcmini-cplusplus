@@ -37,8 +37,12 @@ namespace {
             scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase());
         }
 
-        AtariScreen(uint32_t second_screen) : scr2(second_screen) {
-            AtariScreen();
+        AtariScreen(uint32_t second_screen) : scr2(second_screen),
+                                              active(0),
+                                              blank_routine(0L)
+        {
+            scr1 = reinterpret_cast<uint32_t>(Physbase());
+            printf("screen address = 0x%lx, 0x%lx\r\n", scr1, scr2);
         }
         
         void vblank(void) __attribute__((interrupt))
@@ -65,7 +69,7 @@ namespace {
             else
                 while ((uint32_t) Logbase() != scr1 || (uint32_t) Physbase() != scr2)
                     Setscreen(scr1, scr2, -1);
-            // printf("flip (%d)\r\n", active);
+            printf("flip (%d)\r\n", active);
         }
 
         void clear()
@@ -98,14 +102,13 @@ void anim(void)
     memset((uint8_t *) vscreen, 0, SCREEN_SIZE);
 
     printf("new screen address=0x%lx\r\n", vscreen);
-    /*
+
     AtariScreen screen(vscreen);
 
-    for (int i = 0; i < 10; i++);
+    for (int i = 0; i < 100; i++);
         screen.flip();
 
     screen.cleanup();
-    */
 }
 
 int main()

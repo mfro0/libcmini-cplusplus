@@ -31,12 +31,12 @@ all: $(TARGET)
 $(TARGET):$(OBJS)
 	echo $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
-	$(STACK) -S 1M $(TARGET)
+	$(STACK) -S 2M $(TARGET)
 
 # link with mintlib for comparision
 $(TARGETM):$(OBJS)
 	$(CXX) -o $@ $(OBJS)
-	$(STACK) -S 1M $(TARGETM)
+	$(STACK) -S 2M $(TARGETM)
 
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@
