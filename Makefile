@@ -5,6 +5,8 @@ LIBCMINI_LIB=$(LIBCMINI)/build/
 TOOLCHAIN_PREFIX=m68k-atari-mint
 CXX=$(TOOLCHAIN_PREFIX)-c++
 
+DEPEND=depend 
+
 STACK=$(TOOLCHAIN_PREFIX)-stack 
 
 TARGET=mini++.prg
@@ -44,8 +46,16 @@ $(TARGETM):$(OBJS)
 
 .PHONY: clean
 clean:
-	- rm -f $(OBJS) $(TARGET)
+	- rm -f $(OBJS) $(TARGET) $(DEPEND)
+
+$(DEPEND): $(SRCS)
+	- rm -f $(DEPEND)
+	$(CXX) $(CXXFLAGS) -I$(LIBCMINI_INCLUDE) -M $(SRCS) >> $(DEPEND)
 
 .PHONY: printvars
 printvars:
 	$(foreach V,$(.VARIABLES), $(if $(filter-out environment% default automatic, $(origin $V)),$(warning $V=$($V))))
+
+ifneq (clean,$(MAKECMDGOALS))
+-include $(DEPEND)
+endif
