@@ -37,9 +37,8 @@ namespace {
             scr1 = scr2 = reinterpret_cast<uint32_t>(Physbase());
         }
 
-        AtariScreen(uint16_t* second_screen) {
+        AtariScreen(uint32_t second_screen) : scr2(second_screen) {
             AtariScreen();
-            scr2 = reinterpret_cast<uint32_t>(second_screen);
         }
         
         void vblank(void) __attribute__((interrupt))
@@ -89,32 +88,33 @@ namespace {
 
 void anim(void)
 {
-    constexpr size_t SCREEN_SIZE = 64 * 1024;
+    constexpr size_t SCREEN_SIZE = 64 * 1024L;
 
     uint8_t *screen1[SCREEN_SIZE + 256];
 
 
     // adjust to a suitable address on a 256 bytes boundary
-    uint16_t *vscreen = (uint16_t *) (((long) screen1 + 256UL) & 0xffffff00);
-    memset(vscreen, 0, SCREEN_SIZE);
+    uint32_t vscreen = (((uint32_t) screen1 + 256UL) & 0xffffff00);
+    memset((uint8_t *) vscreen, 0, SCREEN_SIZE);
 
+    printf("new screen address=0x%lx\r\n", vscreen);
+    /*
     AtariScreen screen(vscreen);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++);
         screen.flip();
 
-    while (Cconis())
-        Cconin();
-    Cconws("press ANY key"); (void) Cconin();
-
     screen.cleanup();
-    
-    delete (uint8_t *) screen1;
+    */
 }
 
 int main()
 {
     Supexec(anim);
+
+    while (Cconis())
+        Cconin();
+    Cconws("press ANY key"); (void) Cconin();
 }
 
 
