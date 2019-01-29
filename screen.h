@@ -27,7 +27,7 @@ namespace screen {
                                               blank_routine(0L),
                                               frontbuffer(physbase())
         {
-            printf("screen address = 0x%lx, 0x%lx\r\n", frontbuffer, backbuffer);
+            // printf("screen address = 0x%lx, 0x%lx\r\n", frontbuffer, backbuffer);
         }
         
         void vblank(void) __attribute__((interrupt))
@@ -71,7 +71,7 @@ namespace screen {
                 log = frontbuffer;
                 set();
             }
-            printf("flip (%d)\r\n", active);
+            // printf("flip (%d)\r\n", active);
         }
 
         void clear()
