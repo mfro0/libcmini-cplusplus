@@ -1,7 +1,11 @@
 #include <cstdint>
 #include "screen.h"
+#include "image.h"
 
 using namespace screen;
+
+Image img = Image("images/bees.pi1");
+
 struct Sprite {
     AtariScreen *screen;
 
