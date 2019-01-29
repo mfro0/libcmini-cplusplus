@@ -47,7 +47,7 @@ $(TARGETM):$(OBJS)
 
 .PHONY: clean
 clean:
-	- rm -f $(OBJS) $(TARGET) $(DEPEND)
+	- rm -f $(OBJS) $(TARGET) $(TARGETM) $(DEPEND)
 
 strip: $(TARGET) $(TARGETM)
 	$(TOOLCHAIN_PREFIX)-strip $?
