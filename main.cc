@@ -31,10 +31,10 @@ namespace {
 
         void (*blank_routine)(void);
 
-        AtariScreen() {
-            active = 0;
-            blank_routine = 0L;
-            scr1 = scr2 = physbase();
+        AtariScreen() : active(0),
+                        blank_routine(0L),
+                        scr1(physbase()),
+                        scr2(physbase()) {
         }
 
         AtariScreen(uint32_t second_screen) : scr2(second_screen),
