@@ -27,6 +27,7 @@ namespace {
 
         uint32_t scr1;
         uint32_t scr2;
+        uint32_t log;
         int active;
 
         void (*blank_routine)(void);
@@ -74,7 +75,8 @@ namespace {
             if (active)
             {
                 while ((logbase() != scr2) || (physbase() != scr1))
-                    Setscreen(scr2, scr1, -1);            
+                    Setscreen(scr2, scr1, -1);  
+                log = scr2;          
                 clear();
             }
             else
@@ -82,6 +84,7 @@ namespace {
 
                 while ((logbase() != scr1) || (physbase() != scr2))
                     Setscreen(scr1, scr2, -1);
+                log = scr1;
                 set();
             }
             printf("flip (%d)\r\n", active);
@@ -89,12 +92,12 @@ namespace {
 
         void clear()
         {
-            memset((char *) scr1, 0, SIZE);
+            memset((char *) log, 0, SIZE);
         }
 
         void set()
         {
-            memset((char *) scr1, 0xffffffff, SIZE);
+            memset((char *) log, 0xffffffff, SIZE);
         }
 
         void cleanup(void)
