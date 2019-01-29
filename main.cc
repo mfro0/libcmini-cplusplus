@@ -23,7 +23,7 @@ namespace {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
-        static constexpr size_t SIZE = 32000;
+        static constexpr size_t SIZE = 32 * 1024;
 
         uint32_t scr1;
         uint32_t scr2;
@@ -72,11 +72,18 @@ namespace {
         {   
             active = !active;
             if (active)
+            {
                 while ((logbase() != scr2) || (physbase() != scr1))
                     Setscreen(scr2, scr1, -1);            
+                clear();
+            }
             else
+            {
+
                 while ((logbase() != scr1) || (physbase() != scr2))
                     Setscreen(scr1, scr2, -1);
+                set();
+            }
             printf("flip (%d)\r\n", active);
         }
 
@@ -100,7 +107,7 @@ namespace {
 
 void anim(void)
 {
-    constexpr size_t SCREEN_SIZE = 64 * 1024L;
+    constexpr size_t SCREEN_SIZE = 32 * 1024L;
 
     uint8_t *screen1[SCREEN_SIZE + 256];
 
@@ -113,7 +120,7 @@ void anim(void)
 
     AtariScreen screen(vscreen);
 
-    for (int i = 0; i < 100; i++);
+    for (int i = 0; i < 100; i++)
         screen.flip();
 
     screen.cleanup();
