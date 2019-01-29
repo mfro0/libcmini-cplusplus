@@ -11,7 +11,8 @@ TARGET=mini++.prg
 TARGETM=miniml.prg
 
 SRCS= \
-	main.cc
+	main.cc \
+	sprite.cc
 
 OBJS = $(patsubst %.cc, %.o, $(SRCS))
 
