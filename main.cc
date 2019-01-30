@@ -6,6 +6,7 @@
 #include "screen.h"
 #include "sprite.h"
 #include "tiled_image.h"
+#include "sprite_animation.h"
 
 using namespace screen;
 
@@ -35,10 +36,8 @@ void anim(void)
     uint8_t *screen1[SCREEN_SIZE + 256];
 
     // adjust to a suitable address on a 256 bytes boundary
-    uint32_t vscreen = (((uint32_t) screen1 + 256UL) & 0xffffff00);
+    uint32_t vscreen = ((reinterpret_cast<uint32_t>(screen1) + 256UL) & 0xffffff00);
     memset((uint8_t *) vscreen, 0, SCREEN_SIZE);
-
-    // printf("new screen address=0x%lx\r\n", vscreen);
 
     AtariScreen screen(vscreen);
     TiledImage bees("images/bees.pi1");

@@ -5,10 +5,10 @@
 #include "tiled_image.h"
 
 namespace {
-    extern TiledImage img;
-        
+  
     struct Sprite {
         screen::AtariScreen *screen;
+        TiledImage *image;
 
         uint16_t x;
         uint16_t y;
@@ -18,10 +18,11 @@ namespace {
         uint8_t *sprite_data;
         uint8_t *save_area;
 
-        
-        Sprite(screen::AtariScreen *sc) : screen(sc)
+
+        Sprite(screen::AtariScreen *sc, TiledImage* image) : screen(sc),
+                                                                   image(image)
         {
-            img.tile(3);
+            image->tile(3);
         }
 
         void save(void)
