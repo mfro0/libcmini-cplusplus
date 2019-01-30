@@ -11,13 +11,7 @@ namespace screen {
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
         static constexpr size_t SIZE = 32 * 1024;
-
-        uint32_t frontbuffer;
-        uint32_t backbuffer;
-        uint32_t log;
-        int active;
-
-        void (*blank_routine)(void);
+        
 
         AtariScreen() : active(0),
                         blank_routine(0L),
@@ -92,6 +86,13 @@ namespace screen {
             while ((logbase() != frontbuffer) || (physbase() != frontbuffer))
                 Setscreen(frontbuffer, frontbuffer, -1);
         }
+
+        uint32_t log;
+        int active;
+        void (*blank_routine)(void);
+        uint32_t frontbuffer;
+        uint32_t backbuffer;
+
     };
 }
 #endif // SCREEN_H

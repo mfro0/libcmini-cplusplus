@@ -20,6 +20,7 @@ SRCS= \
 OBJS = $(patsubst %.cc, %.o, $(SRCS))
 
 CXXFLAGS=-fomit-frame-pointer \
+    -Wall \
 	-O2 \
 	-std=c++0x \
 	-nostdlib \
