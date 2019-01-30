@@ -8,14 +8,13 @@ CXX=$(TOOLCHAIN_PREFIX)-c++
 DEPEND=depend 
 
 STACK=$(TOOLCHAIN_PREFIX)-stack 
-STACKSIZE=256K
+STACKSIZE=360K
 
 TARGET=mini++.prg
 TARGETM=miniml.prg
 
 SRCS= \
-	main.cc \
-	sprite.cc
+	main.cc
 
 OBJS = $(patsubst %.cc, %.o, $(SRCS))
 
