@@ -6,7 +6,9 @@
 #include "screen.h"
 #include "sprite.h"
 #include "tiled_image.h"
+#include "image.h"
 #include "sprite_animation.h"
+
 
 using namespace screen;
 
@@ -31,8 +33,6 @@ namespace {
 
 void anim(void)
 {
-    constexpr size_t SCREEN_SIZE = 32 * 1024L;
-
     TiledImage bees("images/bees.pi1");
     Image background("images/meadow.pi1");
     

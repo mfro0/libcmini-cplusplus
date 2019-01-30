@@ -6,13 +6,11 @@
 #include <cstdio>
 #include <osbind.h>
 
-#include "image.h"
-
 namespace screen {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
-        static constexpr size_t SIZE = 32 * 1024;
+        static constexpr size_t SIZE = 32 * 1000;
         
         uint32_t log;
 
@@ -67,7 +65,6 @@ namespace screen {
                 while ((logbase() != backbuffer) || (physbase() != frontbuffer))
                     Setscreen(backbuffer, frontbuffer, -1);  
                 log = backbuffer;          
-                clear();
             }
             else
             {
@@ -75,7 +72,6 @@ namespace screen {
                 while ((logbase() != frontbuffer) || (physbase() != backbuffer))
                     Setscreen(frontbuffer, backbuffer, -1);
                 log = frontbuffer;
-                set();
             }
             // printf("flip (%d)\r\n", active);
         }
