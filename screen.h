@@ -6,6 +6,8 @@
 #include <cstdio>
 #include <osbind.h>
 
+#include "image.h"
+
 namespace screen {
     struct AtariScreen
     {

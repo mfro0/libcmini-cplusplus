@@ -15,7 +15,7 @@ struct TiledImage {
     static constexpr uint16_t width = 40;
     static constexpr uint16_t height = 40;
 
-    DegasPicture image;
+    DegasPicture picture;
 
     auto tile_size(uint16_t i) -> std::pair<uint16_t, uint16_t> {
         return std::make_pair<uint16_t, uint16_t>(i * width, i * height * image_wdwidth);
@@ -27,7 +27,7 @@ struct TiledImage {
 
         fh = Fopen(filename, 2);
         if (fh > 0) {
-            length = Fread(fh, sizeof(DegasPicture), &image);
+            length = Fread(fh, sizeof(DegasPicture), &picture);
             Fclose(fh);
         } 
         

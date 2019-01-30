@@ -15,15 +15,16 @@ namespace {
         static constexpr uint16_t width = 40;
         static constexpr uint16_t height = 40;
 
-        DegasPicture image;
+        DegasPictureOverAllocated oa_image;
+        DegasPicture* image;
 
-        Image(const char *filename) {
+        Image(const char *filename) : image((DegasPicture *) (((uint32_t) &oa_image + 256) & 0xffffff00)) {
             short fh;
             int32_t length = 0;
 
             fh = Fopen(filename, 2);
             if (fh > 0) {
-                length = Fread(fh, sizeof(DegasPicture), &image);
+                length = Fread(fh, sizeof(DegasPicture), image);
                 Fclose(fh);
             } 
             
@@ -35,6 +36,11 @@ namespace {
 
                 exit(1);
             }
+        }
+
+        const uint8_t *image_data(void)
+        {
+            return reinterpret_cast<uint8_t *>(image->picture_data);
         }
     };
 }

@@ -33,15 +33,11 @@ void anim(void)
 {
     constexpr size_t SCREEN_SIZE = 32 * 1024L;
 
-    uint8_t *screen1[SCREEN_SIZE + 256];
-
-    // adjust to a suitable address on a 256 bytes boundary
-    uint32_t vscreen = ((reinterpret_cast<uint32_t>(screen1) + 256UL) & 0xffffff00);
-    memset((uint8_t *) vscreen, 0, SCREEN_SIZE);
-
-    AtariScreen screen(vscreen);
     TiledImage bees("images/bees.pi1");
-
+    Image background("images/meadow.pi1");
+    
+    AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
+    
     for (int i = 0; i < 100; i++)
         screen.flip();
 
