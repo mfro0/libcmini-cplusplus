@@ -7,13 +7,19 @@
 #include <cstdio>
 
 namespace {
+    struct DegasPicture {
+        uint16_t resolution;
+        uint16_t palette[16];
+        uint16_t picture_data[16000];
+    };
+
 struct TiledImage {
     static constexpr int image_size = 32 * 1000L + 34;
     static constexpr int image_wdwidth = 320 * 4 / sizeof(uint8_t);
     static constexpr uint16_t width = 40;
     static constexpr uint16_t height = 40;
 
-    uint8_t *image;
+    DegasPicture image;
 
     auto tile_size(uint16_t i) -> std::pair<uint16_t, uint16_t> {
         return std::make_pair<uint16_t, uint16_t>(i * width, i * height * image_wdwidth);
@@ -26,8 +32,11 @@ struct TiledImage {
         fh = Fopen(filename, 2);
         if (fh > 0) {
             fpos = Fseek(0, fh, 2);    // seek to end of file
-            Fread(fh, fpos, image);
+            Fread(fh, fpos, &image);
             Fclose(fh);
+            printf("image %s has been loaded\r\nto %p\r\n", filename, &image);
+            printf("press any key\r\n");
+            while (Cconis()) Cconin(); Cconin();
         }
     }
 
