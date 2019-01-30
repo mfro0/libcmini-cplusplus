@@ -53,7 +53,7 @@ int main()
 
     while (Cconis())
         Cconin();
-    Cconws("press ANY key"); (void) Cconin();
+    (void) Cconws("press ANY key"); (void) Cconin();
 }
 
 

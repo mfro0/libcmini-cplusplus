@@ -25,6 +25,7 @@ struct TiledImage {
 
         fh = Fopen(filename, 2);
         if (fh > 0) {
+            fpos = Fseek(0, fh, 2);    // seek to end of file
             Fread(fh, fpos, image);
             Fclose(fh);
         }
@@ -35,6 +36,7 @@ struct TiledImage {
                tile_index,
                tile_size(tile_index).first,
                tile_size(tile_index).second);
+        return 0L;
     }
 };
 }

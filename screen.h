@@ -12,6 +12,13 @@ namespace screen {
         static constexpr uint32_t _vbashi = 0xff8201UL;
         static constexpr size_t SIZE = 32 * 1024;
         
+        uint32_t log;
+
+        uint16_t active;
+        void (*blank_routine)(void);
+        uint32_t frontbuffer;
+        uint32_t backbuffer;
+
 
         AtariScreen() : active(0),
                         blank_routine(0L),
@@ -19,10 +26,10 @@ namespace screen {
                         backbuffer(physbase()) {
         }
 
-        AtariScreen(uint32_t second_screen) : backbuffer(second_screen),
-                                              active(0),
+        AtariScreen(uint32_t second_screen) : active(0),
                                               blank_routine(0L),
-                                              frontbuffer(physbase())
+                                              frontbuffer(second_screen),
+                                              backbuffer(physbase())
         {
             // printf("screen address = 0x%lx, 0x%lx\r\n", frontbuffer, backbuffer);
         }
@@ -86,12 +93,6 @@ namespace screen {
             while ((logbase() != frontbuffer) || (physbase() != frontbuffer))
                 Setscreen(frontbuffer, frontbuffer, -1);
         }
-
-        uint32_t log;
-        int active;
-        void (*blank_routine)(void);
-        uint32_t frontbuffer;
-        uint32_t backbuffer;
 
     };
 }
