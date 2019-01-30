@@ -21,12 +21,13 @@ namespace {
 
     static DegasPicture* degas_fix_address(DegasPictureOverAllocated* oa)
     {
+        /*
         printf("p = %p,\r\nfixed address = 0x%lx\r\n",
                oa,
                (reinterpret_cast<uint32_t>(oa) & 0xffffff00) -
                                            offsetof(DegasPicture, picture_data));
         while (Cconis()) Cconin(); (void) Cconws("press key"); Cconin();
-
+        */
         return reinterpret_cast<DegasPicture *>(((reinterpret_cast<uint32_t>(oa) + 512)
                                                   & 0xffffff00) -
                                                  offsetof(DegasPicture, picture_data));

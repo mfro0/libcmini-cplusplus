@@ -42,11 +42,13 @@ struct TiledImage {
     }
 
     uint8_t* tile(const uint16_t tile_index) {
+        /*
         printf("tile size of image %d is (%d,%d)\r\n",
                tile_index,
                tile_size(tile_index).first,
                tile_size(tile_index).second);
-        return 0L;
+        */
+       return 0L;
     }
 };
 }
