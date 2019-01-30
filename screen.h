@@ -1,3 +1,6 @@
+#ifndef SCREEN_H
+#define SCREEN_H
+
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
@@ -91,3 +94,4 @@ namespace screen {
         }
     };
 }
+#endif // SCREEN_H

@@ -1,6 +1,7 @@
 #include <cstdint>
 #include "screen.h"
 #include "tiled_image.h"
+#include "sprite.h"
 
 using namespace screen;
 
@@ -19,7 +20,7 @@ struct Sprite {
 
     Sprite(AtariScreen *sc) : screen(sc)
     {
-
+        img.tile(3);
     }
 
     void save(void)

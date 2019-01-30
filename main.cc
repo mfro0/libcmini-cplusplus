@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdio>
 #include "screen.h"
+#include "sprite.h"
 
 using namespace screen;
 
@@ -31,7 +32,6 @@ void anim(void)
     constexpr size_t SCREEN_SIZE = 32 * 1024L;
 
     uint8_t *screen1[SCREEN_SIZE + 256];
-
 
     // adjust to a suitable address on a 256 bytes boundary
     uint32_t vscreen = (((uint32_t) screen1 + 256UL) & 0xffffff00);
