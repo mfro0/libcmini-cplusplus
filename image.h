@@ -18,7 +18,7 @@ namespace {
         DegasPictureOverAllocated oa_image;
         DegasPicture* image;
 
-        Image(const char *filename) : image((DegasPicture *) (((uint32_t) &oa_image + 256) & 0xffffff00)) {
+        Image(const char *filename) : image(DegasPictureOverAllocated::fix_address(&oa_image)) {
             short fh;
             int32_t length = 0;
 
