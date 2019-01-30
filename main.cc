@@ -5,6 +5,7 @@
 #include <cstdio>
 #include "screen.h"
 #include "sprite.h"
+#include "tiled_image.h"
 
 using namespace screen;
 
@@ -40,6 +41,7 @@ void anim(void)
     // printf("new screen address=0x%lx\r\n", vscreen);
 
     AtariScreen screen(vscreen);
+    TiledImage bees("images/bees.pi1");
 
     for (int i = 0; i < 100; i++)
         screen.flip();
