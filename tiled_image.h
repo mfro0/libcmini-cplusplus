@@ -1,12 +1,12 @@
 #include <osbind.h>
 #include <cstdint>
 
-struct Image {
+struct TiledImage {
     static constexpr int image_size = 32 * 1000L + 34;
 
     uint8_t *image;
 
-    Image(const char *filename) {
+    TiledImage(const char *filename) {
         short fh;
         int32_t fpos;
 

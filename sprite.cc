@@ -1,10 +1,10 @@
 #include <cstdint>
 #include "screen.h"
-#include "image.h"
+#include "tiled_image.h"
 
 using namespace screen;
 
-Image img = Image("images/bees.pi1");
+TiledImage img = TiledImage("images/bees.pi1");
 
 struct Sprite {
     AtariScreen *screen;
