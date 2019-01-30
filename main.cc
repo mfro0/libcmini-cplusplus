@@ -10,8 +10,6 @@
 #include "sprite_animation.h"
 
 
-using namespace screen;
-
 namespace {
     volatile uint32_t& memory32(const uint32_t loc)
     {
@@ -33,7 +31,7 @@ namespace {
 
 void anim(void)
 {
-    TiledImage bees("images/bees.pi1");
+    //TiledImage bees("images/bees.pi1");
     Image background("images/meadow.pi1");
     
     AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));

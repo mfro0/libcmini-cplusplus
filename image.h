@@ -10,7 +10,6 @@
 namespace {
     
     struct Image {
-        static constexpr int image_size = 32 * 1000L + 34;
         static constexpr int image_wdwidth = 320 * 4 / sizeof(uint8_t);
         static constexpr uint16_t width = 40;
         static constexpr uint16_t height = 40;
@@ -18,7 +17,7 @@ namespace {
         DegasPictureOverAllocated oa_image;
         DegasPicture* image;
 
-        Image(const char *filename) : image(DegasPictureOverAllocated::fix_address(&oa_image)) {
+        Image(const char *filename) : image(degas_fix_address(&oa_image)) {
             short fh;
             int32_t length = 0;
 

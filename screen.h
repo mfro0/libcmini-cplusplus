@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <osbind.h>
 
-namespace screen {
+namespace {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;

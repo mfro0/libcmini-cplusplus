@@ -7,7 +7,7 @@
 namespace {
   
     struct Sprite {
-        screen::AtariScreen *screen;
+        AtariScreen *screen;
         TiledImage *image;
 
         uint16_t x;
@@ -19,8 +19,8 @@ namespace {
         uint8_t *save_area;
 
 
-        Sprite(screen::AtariScreen *sc, TiledImage* image) : screen(sc),
-                                                                   image(image)
+        Sprite(AtariScreen *sc, TiledImage* image) : screen(sc),
+                                                     image(image)
         {
             image->tile(3);
         }
