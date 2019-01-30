@@ -35,8 +35,22 @@ namespace {
 
                 exit(1);
             }
+            set_palette();
         }
 
+        void save_palette(void)
+        {
+
+        }
+
+        void set_palette(void)
+        {
+            volatile uint16_t (*colreg)[16] = (volatile uint16_t (*)[16]) 0xffff8242;
+
+            for (int i = 0; i < 16; i++)
+                (*colreg)[i] = image->palette[i];
+
+        }
         const uint8_t *image_data(void)
         {
             return reinterpret_cast<uint8_t *>(image->picture_data);
