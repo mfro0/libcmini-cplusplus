@@ -31,7 +31,7 @@ namespace {
 
 void anim(void)
 {
-    TiledImage bees("images/bees.pi1");
+    const TiledImage bees("images/bees.pi1");
     Image background("images/meadow.pi1");
 
     AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
@@ -39,7 +39,7 @@ void anim(void)
     Coord anodes[] =  { { 10, 10 },
                         { 11, 10 }, };
 
-    SpriteAnimation an(bees, anodes);
+    SpriteAnimation an(bees, AnimationPath(anodes));
     for (int i = 0; i < 100; i++)
         screen.flip();
 

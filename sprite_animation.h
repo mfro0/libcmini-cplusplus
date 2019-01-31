@@ -22,10 +22,10 @@ namespace {
     };
 
     struct SpriteAnimation {
-        const TiledImage* image;
+        const TiledImage image;
         AnimationPath path;
 
-        SpriteAnimation(const TiledImage* img, const AnimationPath p) : image(img),
+        SpriteAnimation(const TiledImage& img, const AnimationPath& p) : image(img),
                                                                         path(p)
         {
 
