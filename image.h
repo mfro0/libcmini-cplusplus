@@ -14,6 +14,7 @@ namespace {
         static constexpr uint16_t width = 40;
         static constexpr uint16_t height = 40;
 
+        uint16_t saved_palette[16];
         DegasPictureOverAllocated oa_image;
         DegasPicture* image;
 
@@ -35,22 +36,37 @@ namespace {
 
                 exit(1);
             }
-            set_palette();
+            save_palette();
+            set_palette(image->palette);
+        }
+
+        ~Image() {
+            restore_palette();
         }
 
         void save_palette(void)
         {
+            volatile uint16_t (*colreg)[16] = (volatile uint16_t (*)[16]) 0xffff8240;
 
+            // transfer color registers into saved_palette
+            for (int i = 0; i < 16; i++)
+                saved_palette[i] = (*colreg)[i];
         }
 
-        void set_palette(void)
+        void set_palette(uint16_t palette[])
         {
             volatile uint16_t (*colreg)[16] = (volatile uint16_t (*)[16]) 0xffff8240;
 
             for (int i = 0; i < 16; i++)
-                (*colreg)[i] = image->palette[i];
+                (*colreg)[i] = palette[i];
 
         }
+
+        void restore_palette(void)
+        {
+            set_palette(saved_palette);
+        }
+
         const uint8_t *image_data(void)
         {
             return reinterpret_cast<uint8_t *>(image->picture_data);
