@@ -39,16 +39,16 @@ void anim(void)
     for (int i = 0; i < 100; i++)
         screen.flip();
 
+    while (Cconis())
+        Cconin();
+    (void) Cconws("press ANY key"); (void) Cconin();
+    
     screen.cleanup();
 }
 
 int main()
 {
     Supexec(anim);
-
-    while (Cconis())
-        Cconin();
-    (void) Cconws("press ANY key"); (void) Cconin();
 }
 
 
