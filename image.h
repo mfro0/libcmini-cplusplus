@@ -32,7 +32,7 @@ namespace {
             {
                 (void) Cconws("Error: image ");
                 (void) Cconws(filename);
-                (void) Cconws(" not found\r\n");
+                (void) Cconws(" could not be loaded\r\n");
 
                 exit(1);
             }

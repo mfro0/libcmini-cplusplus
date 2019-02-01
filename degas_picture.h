@@ -9,7 +9,11 @@ namespace {
         uint16_t resolution;
         uint16_t palette[16];
         uint16_t picture_data[16000];
-    };
+        uint16_t left_color[4];
+        uint16_t right_color[4];
+        uint16_t direction[4];
+        uint16_t delay[4];
+    } __attribute__((packed));
 
         
     struct DegasPictureOverAllocated {
