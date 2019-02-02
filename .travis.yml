@@ -33,5 +33,6 @@ deploy:
   skip_cleanup: true
   file: libcmini-cplusplus.tar.gz
   set_all_branches: true
-  on.tags: true
+  on:
+    tags: true
       
