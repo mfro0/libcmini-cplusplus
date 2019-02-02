@@ -13,11 +13,11 @@ namespace {
         uint16_t right_color[4];
         uint16_t direction[4];
         uint16_t delay[4];
-    } __attribute__((packed));
+    };
 
         
     struct DegasPictureOverAllocated {
-        uint8_t filler[256 + 256];            // need to ensure we overallocate enough memory to align
+        uint8_t filler[256 + 256];      // need to ensure we overallocate enough memory to align
                                         // the picture_data member to an address evenly divisable by 256
                                         // (Atari ST hardware limitation)
         DegasPicture p;
