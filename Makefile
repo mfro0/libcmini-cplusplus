@@ -60,6 +60,9 @@ $(DEPEND): $(SRCS)
 printvars:
 	$(foreach V,$(.VARIABLES), $(if $(filter-out environment% default automatic, $(origin $V)),$(warning $V=$($V))))
 
+release:
+	tar cvzf libcmini-cplusplus.tar.gz mini++.prg
+
 ifneq (clean,$(MAKECMDGOALS))
 -include $(DEPEND)
 endif
