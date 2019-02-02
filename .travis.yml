@@ -15,7 +15,7 @@ before_install:
 - tar --version
 - unix2dos --version
 - lftp --version
-- wget https://github.com/mfro0/libcmini/releases/download/v0.48/libcmini-0.48.tar.gz -O /tmp/casper.tar.gz
+- wget https://github.com/mfro0/libcmini/releases/download/v0.48/libcmini-0.48.tar.gz -O /tmp/libcmini-0.48.tar.gz
 - pushd .. && tar -xvf /tmp/libcmini-0.48.tar.gz && popd
 
 script:
