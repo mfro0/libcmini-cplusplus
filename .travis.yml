@@ -30,8 +30,8 @@ deploy:
   provider: releases
   api_key:
     secure: E0DGcgNJQnFfwSGivJ863vzk4cH3jr1AUi5827PLlO73qbciVlhGuImFG2QouQMcaWhs9YKwxL0UjH4WKQuUNcnq5wYUtu4aQ3/3PRKX/aBlXvn9LMGx1XCCuLsGJgfW+QkSUA2mUgf+w8awha4NsyP6yi6cAanlRcDIugI+HqMPbpFFQcz9MRNlZTZXbmNtZD+Pyv6AHxOiEcg419Tw35CeNgVfcAxBXbiGwTAIYOx28AOtObnkkM3oORVYsqJoYwj+qQc72V3Nc6WVV+lac252jJXmsm5QTMbyavsg4S6DZIuQtqEa0CNlpgUpSO50Qr9CaQumYVSQFBFnzdv371Eaw2ran7zpE1V8gxvlJNi5pY8icIjHLGB8ooBLVP/d5kBc3ZkXjHYJfCGJoByV4nX/bH/3a1Beno/uh5MvzvFH2O8+lXQ8taskoEaXAOTQfSYzYVYlbk8hi5Mfak9pEfIKlDsrtBCWZ4G+AA/BBGhtmu29BqJ4g/dvZggDvzmDDM+721d6gGi0JbETqGBfcV8Ay3I8O2dBAdT+Y5v9WiJSpHaGk7PEDKBezBELbv8ARpyWOCDP0niAfIoP5b911XsAILhqPqlF4XvoYSlQm4jbqPhF1Qo8ZpAIwUchrBAKUA/U0ZwLm24TVjYlhZZl5AosrzDhii0GpJ1fN5tgs00=
-    skip_cleanup: true
-    file: libcmini-cplusplus.tar.gz
-    set_all_branches: true
-    on.tags: true
+  skip_cleanup: true
+  file: libcmini-cplusplus.tar.gz
+  set_all_branches: true
+  on.tags: true
       
