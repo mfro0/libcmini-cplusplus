@@ -28,8 +28,7 @@ namespace {
                 Fclose(fh);
             } 
             
-            if (fh < 0 || length != sizeof(DegasPicture))
-            {
+            if (fh < 0 || length != sizeof(DegasPicture)) {
                 (void) Cconws("Error: image ");
                 (void) Cconws(filename);
                 (void) Cconws(" could not be loaded\r\n");
@@ -44,8 +43,7 @@ namespace {
             restore_palette();
         }
 
-        void save_palette(void)
-        {
+        void save_palette(void) {
             volatile uint16_t (*colreg)[16] = (volatile uint16_t (*)[16]) 0xffff8240;
 
             // transfer color registers into saved_palette
@@ -53,8 +51,7 @@ namespace {
                 saved_palette[i] = (*colreg)[i];
         }
 
-        void set_palette(uint16_t palette[])
-        {
+        void set_palette(uint16_t palette[]) {
             volatile uint16_t (*colreg)[16] = (volatile uint16_t (*)[16]) 0xffff8240;
 
             for (int i = 0; i < 16; i++)
@@ -62,13 +59,11 @@ namespace {
 
         }
 
-        void restore_palette(void)
-        {
+        void restore_palette(void) {
             set_palette(saved_palette);
         }
 
-        const uint8_t *image_data(void)
-        {
+        const uint8_t *image_data(void) {
             return reinterpret_cast<uint8_t *>(image->picture_data);
         }
     };

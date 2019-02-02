@@ -23,8 +23,7 @@ namespace {
         DegasPicture p;
     };
 
-    static DegasPicture* degas_fix_address(DegasPictureOverAllocated* oa)
-    {
+    static DegasPicture* degas_fix_address(DegasPictureOverAllocated* oa) {
         /*
         printf("p = %p,\r\nfixed address = 0x%lx\r\n",
                oa,

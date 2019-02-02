@@ -13,14 +13,12 @@ namespace {
         int SPRITE_WIDTH;
         int SPRITE_HEIGHT;
 
-        SpriteDefinition(int w, int h) : SPRITE_WIDTH(w), SPRITE_HEIGHT(h)
-        {
-
+        SpriteDefinition(int w, int h) : SPRITE_WIDTH(w), SPRITE_HEIGHT(h) {
         }
     };
 
     struct TiledImage {
-        static constexpr int image_size = sizeof(DegasPicture::picture_data);
+        static constexpr int IMAGE_SIZE = sizeof(DegasPicture::picture_data);
         static constexpr int BITS_PER_PIXEL = 4;
         static constexpr int IMAGE_WDWIDTH = 320 * BITS_PER_PIXEL / sizeof(uint16_t) / 8;
     
@@ -38,8 +36,7 @@ namespace {
                 Fclose(fh);
             } 
         
-            if (fh < 0 || length != sizeof(DegasPicture))
-            {
+            if (fh < 0 || length != sizeof(DegasPicture)) {
                 (void) Cconws("Error: image ");
                 (void) Cconws(filename);
                 (void) Cconws(" not found\r\n");
@@ -51,9 +48,7 @@ namespace {
         }
 
         TiledImage(const char *filename, const SpriteDefinition& defs) : picture(load(filename)),
-                                                                         defs(defs)
-        {
-        
+                                                                         defs(defs) {        
         }
 
         uint16_t* tile(const uint16_t tile_index) {

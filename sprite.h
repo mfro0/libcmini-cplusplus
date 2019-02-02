@@ -20,14 +20,11 @@ namespace {
 
 
         Sprite(AtariScreen& sc, TiledImage& image) : screen(sc),
-                                                     image(image)
-        {
+                                                     image(image) {
             image.tile(3);
         }
 
-        void save(void)
-        {
-
+        void save(void) {
         }
 
         void draw(void) {
@@ -38,7 +35,6 @@ namespace {
         }
 
         void undraw(void) {
-
         }
     };
 }

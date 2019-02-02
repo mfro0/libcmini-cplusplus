@@ -29,13 +29,11 @@ namespace {
         AtariScreen(uint32_t second_screen) : active(0),
                                               blank_routine(0L),
                                               frontbuffer(second_screen),
-                                              backbuffer(physbase())
-        {
+                                              backbuffer(physbase()) {
             // printf("screen address = 0x%lx, 0x%lx\r\n", frontbuffer, backbuffer);
         }
         
-        void vblank(void) __attribute__((interrupt))
-        {
+        void vblank(void) __attribute__((interrupt)) {
             if (blank_routine != NULL)
                 (*blank_routine)();
         }
@@ -44,30 +42,25 @@ namespace {
             blank_routine = blank;
         }
 
-        void (*get_blank(void))(void)
-        {
+        void (*get_blank(void))(void) {
             return blank_routine;
         }
 
-        static uint32_t logbase(void){
+        static uint32_t logbase(void) {
             return reinterpret_cast<uint32_t>(Logbase());
         }
 
-        static uint32_t physbase(void){
+        static uint32_t physbase(void) {
             return reinterpret_cast<uint32_t>(Physbase());
         }
 
-        void flip()
-        {   
+        void flip() {   
             active = !active;
-            if (active)
-            {
+            if (active) {
                 while ((logbase() != backbuffer) || (physbase() != frontbuffer))
                     Setscreen(backbuffer, frontbuffer, -1);  
                 log = backbuffer;          
-            }
-            else
-            {
+            } else {
 
                 while ((logbase() != frontbuffer) || (physbase() != backbuffer))
                     Setscreen(frontbuffer, backbuffer, -1);
@@ -76,18 +69,15 @@ namespace {
             // printf("flip (%d)\r\n", active);
         }
 
-        void clear()
-        {
+        void clear() {
             memset((char *) log, 0, SIZE);
         }
 
-        void set()
-        {
+        void set() {
             memset((char *) log, 0xffffffff, SIZE);
         }
 
-        void cleanup(void)
-        {
+        void cleanup(void) {
             while ((logbase() != frontbuffer) || (physbase() != frontbuffer))
                 Setscreen(frontbuffer, frontbuffer, -1);
         }

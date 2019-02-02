@@ -10,25 +10,21 @@
 #include "sprite_animation.h"
 
 namespace {
-    volatile uint32_t& memory32(const uint32_t loc)
-    {
+    volatile uint32_t& memory32(const uint32_t loc) {
         return *reinterpret_cast<uint32_t *>(loc);
     }
 
-    volatile uint16_t& memory16(const uint32_t loc)
-    {
+    volatile uint16_t& memory16(const uint32_t loc) {
         return *reinterpret_cast<uint16_t *>(loc);
     }
 
-    volatile uint8_t& memory8(const uint32_t loc)
-    {
+    volatile uint8_t& memory8(const uint32_t loc) {
         return *reinterpret_cast<uint8_t *>(loc);
     }
 
 
 
-    void anim(void)
-    {
+    void anim(void) {
         const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));
         Image background("images/meadow.pi1");
 
@@ -49,8 +45,7 @@ namespace {
     }
 }
 
-int main()
-{
+int main() {
     Supexec(anim);
 }
 
