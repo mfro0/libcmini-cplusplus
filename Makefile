@@ -61,7 +61,7 @@ printvars:
 	$(foreach V,$(.VARIABLES), $(if $(filter-out environment% default automatic, $(origin $V)),$(warning $V=$($V))))
 
 release:
-	tar cvzf libcmini-cplusplus.tar.gz mini++.prg
+	tar cvzf libcmini-cplusplus.tar.gz mini++.prg images
 
 ifneq (clean,$(MAKECMDGOALS))
 -include $(DEPEND)
