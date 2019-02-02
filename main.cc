@@ -1,5 +1,5 @@
-#include <cstdint>
 #include <osbind.h>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
@@ -8,7 +8,6 @@
 #include "tiled_image.h"
 #include "image.h"
 #include "sprite_animation.h"
-
 
 namespace {
     volatile uint32_t& memory32(const uint32_t loc)
