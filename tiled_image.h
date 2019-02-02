@@ -11,15 +11,13 @@ namespace {
     
 struct TiledImage {
     static constexpr int image_size = sizeof(DegasPicture::picture_data);
-    static constexpr int image_wdwidth = 320 * 4 / sizeof(uint8_t);
-    static constexpr uint16_t width = 40;
-    static constexpr uint16_t height = 40;
+    static constexpr int BITS_PER_PIXEL = 4;
+    static constexpr int IMAGE_WDWIDTH = 320 * BITS_PER_PIXEL / sizeof(uint16_t) / 8;
+    
+    static constexpr uint16_t TILE_WIDTH = 40;
+    static constexpr uint16_t TILE_HEIGHT = 40;
 
     DegasPicture picture;
-
-    auto tile_size(uint16_t i) -> std::pair<uint16_t, uint16_t> {
-        return std::make_pair<uint16_t, uint16_t>(i * width, i * height * image_wdwidth);
-    }
 
     DegasPicture load(const char *filename) {
         short fh;
@@ -49,13 +47,10 @@ struct TiledImage {
     }
 
     uint16_t* tile(const uint16_t tile_index) {
-        /*
-        printf("tile size of image %d is (%d,%d)\r\n",
-               tile_index,
-               tile_size(tile_index).first,
-               tile_size(tile_index).second);
-        */
-       return 0L;
+        // return start address of tile # tile_index
+        // tiles are TILE_WIDTH pixels wide, image is IMAGE_WDWIDTH
+        // words wide
+        return picture.picture_data + TILE_WIDTH * BITS_PER_PIXEL / (sizeof(uint16_t) * 8);
     }
 };
 }
