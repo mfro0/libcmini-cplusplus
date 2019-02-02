@@ -17,7 +17,8 @@ before_install:
 - lftp --version
 - wget https://github.com/mfro0/libcmini/releases/download/v0.48/libcmini-0.48.tar.gz -O /tmp/libcmini-0.48.tar.gz
 - mkdir -p ../libcmini/build
-- pushd ../libcmini/build && tar -xvf /tmp/libcmini-0.48.tar.gz && ln -sf lib/startup.o . && ln -sf lib/libcmini.a l && popd
+- pushd ../libcmini/build && tar -xvf /tmp/libcmini-0.48.tar.gz && ln -sf lib/startup.o . && ln -sf lib/libcmini.a . && popd
+- ls -l ../libcmini/build
 
 script:
 - make clean
