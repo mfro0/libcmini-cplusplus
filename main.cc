@@ -26,27 +26,27 @@ namespace {
     }
 
 
-}
 
-void anim(void)
-{
-    const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));
-    Image background("images/meadow.pi1");
+    void anim(void)
+    {
+        const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));
+        Image background("images/meadow.pi1");
 
-    AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
+        AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
 
-    Coord anodes[] =  { { 10, 10 },
-                        { 11, 10 }, };
+        Coord anodes[] =  { { 10, 10 },
+                            { 11, 10 }, };
 
-    SpriteAnimation an(bees, AnimationPath(anodes));
-    for (int i = 0; i < 100; i++)
-        screen.flip();
+        SpriteAnimation an(bees, AnimationPath(anodes));
+        for (int i = 0; i < 100; i++)
+            screen.flip();
 
-    while (Cconis())
-        Cconin();
-    (void) Cconws("press ANY key"); (void) Cconin();
+        while (Cconis())
+            Cconin();
+        (void) Cconws("press ANY key"); (void) Cconin();
 
-    screen.cleanup();
+        screen.cleanup();
+    }
 }
 
 int main()
