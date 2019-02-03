@@ -41,7 +41,7 @@ namespace {
                 (*blank_routine)();
         }
 
-        uint32_t set_blank(void (* blank)(void)) {
+        void set_blank(void (* blank)(void)) {
             blank_routine = blank;
         }
 

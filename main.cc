@@ -8,6 +8,7 @@
 #include "tiled_image.h"
 #include "image.h"
 #include "sprite_animation.h"
+#include <string>
 
 namespace {
 
@@ -26,7 +27,8 @@ namespace {
 
         while (Cconis())
             Cconin();
-        (void) Cconws("press ANY key"); (void) Cconin();
+
+        (void) Cconws("press anykey"); (void) Cconin();
 
         screen.cleanup();
     }
