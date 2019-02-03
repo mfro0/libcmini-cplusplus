@@ -5,11 +5,14 @@
 #include <cstring>
 #include <cstdio>
 #include <osbind.h>
+#include "memory.h"
 
 namespace {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
+        static constexpr uint32_t _vbaslo = 0xff9203UL;
+
         static constexpr size_t SIZE = 32 * 1000;
         
         uint32_t log;
@@ -38,7 +41,7 @@ namespace {
                 (*blank_routine)();
         }
 
-        void set_blank(void (*blank)(void)) {
+        uint32_t set_blank(void (* blank)(void)) {
             blank_routine = blank;
         }
 
@@ -46,29 +49,18 @@ namespace {
             return blank_routine;
         }
 
-        static uint32_t logbase(void) {
+        uint32_t logbase(void) {
             return reinterpret_cast<uint32_t>(Logbase());
         }
 
-        static uint32_t physbase(void) {
+        uint32_t physbase(void) {
             return reinterpret_cast<uint32_t>(Physbase());
         }
 
-        void flip() {   
-            active = !active;
-            if (active) {
-                while ((logbase() != backbuffer) || (physbase() != frontbuffer))
-                    Setscreen(backbuffer, frontbuffer, -1);  
-                log = backbuffer;          
-            } else {
-
-                while ((logbase() != frontbuffer) || (physbase() != backbuffer))
-                    Setscreen(frontbuffer, backbuffer, -1);
-                log = frontbuffer;
-            }
-            // printf("flip (%d)\r\n", active);
+        void set_log_screen(uint32_t address) {
+            memory8(_vbashi) = (address >> 24) && 0xff;
+            memory8(_vbaslo) = (address >> 16) && 0xff;
         }
-
         void clear() {
             memset((char *) log, 0, SIZE);
         }
@@ -78,8 +70,7 @@ namespace {
         }
 
         void cleanup(void) {
-            while ((logbase() != frontbuffer) || (physbase() != frontbuffer))
-                Setscreen(frontbuffer, frontbuffer, -1);
+            Setscreen(frontbuffer, frontbuffer, -1);
         }
 
     };

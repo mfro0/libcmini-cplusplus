@@ -13,9 +13,9 @@ namespace {
     };
 
     struct AnimationPath {
-        Coord *nodes;
+        const Coord * const nodes;
         
-        AnimationPath(Coord *c) : nodes(c)
+        AnimationPath(const Coord * const c) : nodes(c)
         {
 
         }
@@ -23,7 +23,7 @@ namespace {
 
     struct SpriteAnimation {
         const TiledImage image;
-        AnimationPath path;
+        const AnimationPath path;
 
         SpriteAnimation(const TiledImage& img, const AnimationPath& p) : image(img),
                                                                         path(p)
