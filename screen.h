@@ -2,6 +2,7 @@
 #define SCREEN_H
 
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 #include <cstdio>
 #include <osbind.h>
@@ -33,7 +34,6 @@ namespace {
                                               blank_routine(0L),
                                               frontbuffer(second_screen),
                                               backbuffer(physbase()) {
-            // printf("screen address = 0x%lx, 0x%lx\r\n", frontbuffer, backbuffer);
         }
         
         void vblank(void) __attribute__((interrupt)) {

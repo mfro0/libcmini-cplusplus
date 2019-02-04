@@ -9,6 +9,7 @@
 #include "image.h"
 #include "sprite_animation.h"
 #include <string>
+#include <array>
 
 namespace {
 
@@ -20,9 +21,12 @@ namespace {
 
         AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
 
+        /*
         const Coord anodes[] =  { { 10, 10 },
                                   { 11, 10 }, };
-
+        */
+        std::array<pair16, 2> anodes = {{ pair16(10, 10), pair16(10, 11) }};
+        // decltype(auto) anodes = std::make_array(pair16(10, 10), pair16(10, 11));
         SpriteAnimation an(bees, AnimationPath(anodes));
 
         while (Cconis())

@@ -10,10 +10,10 @@
 namespace {
     
     struct SpriteDefinition {
-        int SPRITE_WIDTH;
-        int SPRITE_HEIGHT;
+        uint16_t SPRITE_WIDTH;
+        uint16_t SPRITE_HEIGHT;
 
-        SpriteDefinition(int w, int h) : SPRITE_WIDTH(w), SPRITE_HEIGHT(h) {
+        SpriteDefinition(uint16_t w, uint16_t h) : SPRITE_WIDTH(w), SPRITE_HEIGHT(h) {
         }
     };
 
@@ -48,7 +48,7 @@ namespace {
         }
 
         TiledImage(const char * const filename, const SpriteDefinition& defs) : picture(load(filename)),
-                                                                         defs(defs) {        
+                                                                                defs(defs) {        
         }
 
         uint16_t* tile(const uint16_t tile_index) {
