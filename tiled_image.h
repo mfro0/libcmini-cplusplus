@@ -25,7 +25,7 @@ namespace {
         DegasPicture picture;
         SpriteDefinition defs;
 
-        DegasPicture load(const char *filename) {
+        DegasPicture load(const char * const filename) {
             short fh;
             int32_t length = 0;
             DegasPicture picture;
@@ -47,7 +47,7 @@ namespace {
             return picture;
         }
 
-        TiledImage(const char *filename, const SpriteDefinition& defs) : picture(load(filename)),
+        TiledImage(const char * const filename, const SpriteDefinition& defs) : picture(load(filename)),
                                                                          defs(defs) {        
         }
 
