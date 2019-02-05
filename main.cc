@@ -11,7 +11,7 @@
 #include "tiled_image.h"
 #include "image.h"
 #include "sprite_animation.h"
-#include "rng.h"
+//#include "rng.h"
 
 namespace {
 
