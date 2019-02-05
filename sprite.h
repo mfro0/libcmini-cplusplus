@@ -15,13 +15,13 @@ namespace {
         uint16_t width;
         uint16_t height;
 
-        uint8_t *sprite_data;
+        uint16_t *sprite_data;
         uint8_t *save_area;
 
 
         Sprite(AtariScreen& sc, TiledImage& image) : screen(sc),
                                                      image(image) {
-            image.tile(3);
+            sprite_data = image.tile(3);
         }
 
         void save(void) {

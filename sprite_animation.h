@@ -7,12 +7,15 @@
 
 namespace {
 
-    typedef std::pair<uint16_t, uint16_t> pair16;
+    struct Coord {
+        uint16_t x;
+        uint16_t y;
+    };
 
     struct AnimationPath {
-        const std::array<pair16, 2> nodes;
+        const std::array<Coord, 4>& nodes;
         
-        AnimationPath(const std::array<pair16, 2>& c) : nodes(c)
+        AnimationPath(const std::array<Coord, 4>& c) : nodes(c)
         {
 
         }
