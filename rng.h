@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <cstdlib>
-#include <iostream>
 #include <iterator>
 #include <random>
 
@@ -14,7 +13,6 @@ namespace {
 
     struct rng 
     {
-        /*
         static int get_seed()
         {
             int hour = std::atoi(__TIME__);
@@ -22,9 +20,7 @@ namespace {
             int sec = std::atoi(__TIME__ + 6);
             return 10000 * hour + 100 * min + sec;
         }
-        */
 
-        /*
         int get_rn(void)
         {
             // get_seed() returns an int based on __TIME__ (a string literal
@@ -35,10 +31,10 @@ namespace {
             // you're OK getting the same sequence of numbers for any compilation,
             // then "std::mt19937_64 rng;" may be all you need.
 
-            //std::mt19937_64 rng(1 /* get_seed() */);
-            //std::uniform_int_distribution<int16_t> plusminus(-1, 1);
+            std::mt19937_64 rng(get_seed());
+            std::uniform_int_distribution<int16_t> plusminus(-1, 1);
             const int COUNT = 100;
-            //std::array<int16_t, COUNT> arr;
+            std::array<int16_t, COUNT> arr;
 
             /*
             std::generate_n(std::back_inserter(arr), COUNT,
@@ -52,7 +48,6 @@ namespace {
                             }); */
             return 0;
         }
-        */
     };
 }
 
