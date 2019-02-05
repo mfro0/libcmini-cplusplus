@@ -8,6 +8,8 @@
 #include <iterator>
 #include <random>
 
+#include "sprite_animation.h"
+
 namespace {
 
     struct rng 
@@ -20,7 +22,7 @@ namespace {
             return 10000 * hour + 100 * min + sec;
         }
 
-        get_rn()
+        int get_rn(void)
         {
             // get_seed() returns an int based on __TIME__ (a string literal
             // set by the preprocessor), which is known at compile time.
@@ -29,11 +31,20 @@ namespace {
             // will use a default seed, which is known at compile time.  So if
             // you're OK getting the same sequence of numbers for any compilation,
             // then "std::mt19937_64 rng;" may be all you need.
-            std::mt19937_64 rng(get_seed());
+
+            std::mt19937_64 rng(1 /* get_seed() */);
             std::uniform_int_distribution<int16_t> plusminus(-1, 1);
-            const int COUNT = 1000;
-            std::generate_n(std::ostream_iterator<int16_t>(std::cout, "\n"), COUNT,
-                [&rng, &plusminus]() { return plusminus(rng); });
+            const int COUNT = 100;
+            std::vector<int16_t> arr;
+
+            std::generate_n(std::back_inserter(arr), COUNT,
+                            [&rng, &plusminus]() {
+                                return plusminus(rng);
+                            });
+            /* std::generate_n(std::ostream_iterator<int16_t>(std::cout, "\n"), COUNT, 
+                            [&rng, &plusminus]() {
+                                return plusminus(rng);
+                            }); */
             return 0;
         }
     };
