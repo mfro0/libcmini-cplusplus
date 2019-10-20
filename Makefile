@@ -22,14 +22,15 @@ OBJS = $(patsubst %.cc, %.o, $(SRCS))
 CXXFLAGS=-fomit-frame-pointer \
     -Wall \
 	-O2 \
+	--no-exceptions \
+	--no-rtti \
 	-std=c++0x \
-	-nostdlib \
-	-g
+	-nostdlib
 
 
 # for the global constructors to be called, we need to link libgcc twice
 # since __main() resides in libgcc.
-LDFLAGS=-lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc
+LDFLAGS=-s -lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc
 
 all: $(TARGET)
 
