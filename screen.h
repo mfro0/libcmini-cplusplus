@@ -8,7 +8,7 @@
 #include <osbind.h>
 #include "memory.h"
 
-namespace {
+namespace AtariGraphics {
     struct AtariScreen
     {
         static constexpr uint32_t _vbashi = 0xff8201UL;
@@ -24,55 +24,31 @@ namespace {
         uint32_t backbuffer;
 
 
-        AtariScreen() : active(0),
-                        blank_routine(0L),
-                        frontbuffer(physbase()),
-                        backbuffer(physbase()) {
-        }
+        AtariScreen();
 
-        AtariScreen(uint32_t second_screen) : active(0),
-                                              blank_routine(0L),
-                                              frontbuffer(second_screen),
-                                              backbuffer(physbase()) {
-        }
+        AtariScreen(uint32_t second_screen);
         
-        void vblank(void) __attribute__((interrupt)) {
-            if (blank_routine != NULL)
-                (*blank_routine)();
-        }
+        ~AtariScreen(void);
 
-        void set_blank(void (* blank)(void)) {
-            blank_routine = blank;
-        }
+        void vblank(void) __attribute__((interrupt));
 
-        void (*get_blank(void))(void) {
-            return blank_routine;
-        }
+        void set_blank(void (* blank)(void));
 
-        uint32_t logbase(void) {
-            return reinterpret_cast<uint32_t>(Logbase());
-        }
+        void (*get_blank(void))(void);
 
-        uint32_t physbase(void) {
-            return reinterpret_cast<uint32_t>(Physbase());
-        }
+        uint32_t logbase(void);
 
-        void set_log_screen(uint32_t address) {
-            memory8(_vbashi) = (address >> 24) && 0xff;
-            memory8(_vbaslo) = (address >> 16) && 0xff;
-        }
-        void clear() {
-            memset((char *) log, 0, SIZE);
-        }
+        uint32_t physbase(void);
 
-        void set() {
-            memset((char *) log, 0xffffffff, SIZE);
-        }
+        void set_log_screen(uint32_t address);
 
-        void cleanup(void) {
-            Setscreen(frontbuffer, frontbuffer, -1);
-        }
+        uint32_t get_log_screen(void);
 
+        void clear();
+
+        void set();
+
+        void cleanup(void);
     };
 }
 #endif // SCREEN_H

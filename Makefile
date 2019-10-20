@@ -15,10 +15,11 @@ TARGET=mini++.prg
 TARGETM=miniml.prg
 
 SRCS= \
-	main.cc \
-	image.cc
+	main.cpp \
+	image.cpp \
+	screen.cpp
 
-OBJS = $(patsubst %.cc, %.o, $(SRCS))
+OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 
 CXXFLAGS=-fomit-frame-pointer \
     -Wall \
