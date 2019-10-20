@@ -14,7 +14,7 @@
 #include "rng.h"
 
 namespace {
-    using namespace Image;
+    using namespace AtariGraphics;
 
     void anim(void) {
         const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));

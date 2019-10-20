@@ -4,8 +4,8 @@
 #include "screen.h"
 #include "tiled_image.h"
 
-namespace {
-  
+namespace AtariGraphics {
+    
     struct Sprite {
         AtariScreen& screen;
         TiledImage& image;
@@ -19,23 +19,11 @@ namespace {
         uint8_t *save_area;
 
 
-        Sprite(AtariScreen& sc, TiledImage& image) : screen(sc),
-                                                     image(image) {
-            sprite_data = image.tile(3);
-        }
+        Sprite(AtariScreen& sc, TiledImage& image);
 
-        void save(void) {
-        }
-
-        void draw(void) {
-            save();
-            for (int i = 0; i < height; i++)
-                ;
-                // memcpy(save_area, screen, )
-        }
-
-        void undraw(void) {
-        }
+        void save(void);
+        void draw(void);
+        void undraw(void);
     };
 }
 #endif // SPRITE_H

@@ -17,7 +17,8 @@ TARGETM=miniml.prg
 SRCS= \
 	main.cpp \
 	image.cpp \
-	screen.cpp
+	screen.cpp \
+	sprite.cpp
 
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 
