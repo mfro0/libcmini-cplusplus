@@ -9,6 +9,7 @@ DEPEND=depend
 
 STACK=$(TOOLCHAIN_PREFIX)-stack 
 STACKSIZE=360K
+FLAGS=$(TOOLCHAIN_PREFIX)-flags 
 
 TARGET=mini++.prg
 TARGETM=miniml.prg
@@ -36,6 +37,7 @@ $(TARGET):$(OBJS)
 	echo $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $? $(LDFLAGS) -o $@ 
 	$(STACK) -S $(STACKSIZE) $(TARGET)
+	$(FLAGS) --mno-fastram --mno-fastalloc $(TARGET)
 
 # link with mintlib for comparision
 $(TARGETM):$(OBJS)
