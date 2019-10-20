@@ -15,7 +15,8 @@ TARGET=mini++.prg
 TARGETM=miniml.prg
 
 SRCS= \
-	main.cc
+	main.cc \
+	image.cc
 
 OBJS = $(patsubst %.cc, %.o, $(SRCS))
 
@@ -36,7 +37,7 @@ all: $(TARGET)
 
 $(TARGET):$(OBJS)
 	echo $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $? $(LDFLAGS) -o $@ 
+	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
 	$(STACK) -S $(STACKSIZE) $(TARGET)
 	$(FLAGS) --mno-fastram --mno-fastalloc $(TARGET)
 
