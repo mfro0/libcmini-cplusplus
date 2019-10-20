@@ -18,7 +18,7 @@ namespace {
 
     void anim(void) {
         const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));
-        Image::Image background("images/meadow.pi1");
+        AtariGraphics::Image background("images/meadow.pi1");
 
         {
         AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));

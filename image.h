@@ -4,7 +4,7 @@
 #include <cstdint>
 #include "degas_picture.h"
 
-namespace Image {
+namespace AtariGraphics {
     
     struct Image {
         static constexpr int image_wdwidth = 320 * 4 / sizeof(uint8_t);
