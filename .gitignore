@@ -2,3 +2,5 @@ EMUDESK.INF
 depend
 *.o
 *.prg
+DEGELITE.PRG
+DEGELITE.RSC
