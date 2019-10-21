@@ -7,7 +7,7 @@
 #include <cstdio>
 #include "degas_picture.h"
 
-namespace {
+namespace AtariGraphics {
     
     struct SpriteDefinition {
         uint16_t SPRITE_WIDTH;

@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 namespace AtariGraphics {
-    Image::Image(const char *filename) : image(degas_fix_address(&oa_image)) {
+    Image::Image(const char *filename) : image(fix_address(&oa_image)) {
         short fh;
         int32_t length = 0;
 

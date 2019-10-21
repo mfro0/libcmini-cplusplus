@@ -3,19 +3,19 @@
 namespace AtariGraphics
 {
     AtariScreen::AtariScreen() : active(0),
-                        blank_routine(0L),
-                        frontbuffer(physbase()),
-                        backbuffer(physbase()) {
+                                 blank_routine(0L),
+                                 frontbuffer(physbase()),
+                                 backbuffer(physbase()) {
     }
 
     AtariScreen::AtariScreen(uint32_t second_screen) : active(0),
-                                          blank_routine(0L),
-                                          frontbuffer(second_screen),
-                                          backbuffer(physbase()) {
+                                                       blank_routine(0L),
+                                                       frontbuffer(second_screen),
+                                                       backbuffer(physbase()) {
     }
 
     AtariScreen::~AtariScreen(void) {
-            cleanup();
+        cleanup();
     }
 
     void AtariScreen::vblank(void) {
@@ -39,13 +39,15 @@ namespace AtariGraphics
         return reinterpret_cast<uint32_t>(Physbase());
     }
 
-    void AtariScreen::set_log_screen(uint32_t address) {
-        memory8(_vbashi) = (address >> 24) && 0xff;
-        memory8(_vbaslo) = (address >> 16) && 0xff;
+    void AtariScreen::set_screen(Image *img) {
+        uint32_t address = reinterpret_cast<uint32_t>(img);
+
+        memory8(_vbashi) = (address >> 16) && 0xff;
+        memory8(_vbaslo) = (address >> 8) && 0xff;
     }
 
-    uint32_t AtariScreen::get_log_screen(void) {
-        uint32_t address = memory8(_vbashi) << 24 | memory8(_vbaslo) << 16;
+    Image* AtariScreen::get_screen(void) {
+        Image* address = reinterpret_cast<Image*>(memory8(_vbashi) << 16 | memory8(_vbaslo) << 8);
         
         return address;
     }
@@ -59,6 +61,6 @@ namespace AtariGraphics
     }
 
     void AtariScreen::cleanup(void) {
-        Setscreen(frontbuffer, frontbuffer, -1);
+        // Setscreen(frontbuffer, frontbuffer, -1);
     }
 }

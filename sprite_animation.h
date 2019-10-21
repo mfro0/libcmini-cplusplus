@@ -5,7 +5,7 @@
 
 #include "tiled_image.h"
 
-namespace {
+namespace AtariGraphics {
 
     struct Coord {
         uint16_t x;

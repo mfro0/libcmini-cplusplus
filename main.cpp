@@ -18,8 +18,7 @@ namespace {
 
     void anim(void) {
         const TiledImage bees("images/bees.pi1", SpriteDefinition(40, 40));
-        AtariGraphics::Image background("images/meadow.pi1");
-
+        Image background("images/meadow.pi1");
         AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
             
         std::array<Coord, 4> anodes = {{ { 10, 10 },
@@ -29,6 +28,7 @@ namespace {
         // decltype(auto) anodes = std::make_array({10, 10}, {10, 11});
         SpriteAnimation an(bees, AnimationPath(anodes));
           
+        screen.set_screen(&background);
         while (Cconis())
             Cconin();
 

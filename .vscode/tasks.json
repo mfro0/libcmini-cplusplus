@@ -6,7 +6,7 @@
         {
             "label": "make",
             "type": "shell",
-            "command": "make strip",
+            "command": "make",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -18,7 +18,7 @@
                     "${workspaceRoot}"
                 ],
                 "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):(warning|error):\\s+(.*)$",
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
                     "file": 1,
                     "line": 2,
                     "column": 3,
@@ -26,6 +26,11 @@
                     "message": 5
                 }
             }
+        },
+        {
+            "label": "make clean",
+            "type": "shell",
+            "command": "make clean"
         }
     ]
 }

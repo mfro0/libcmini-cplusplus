@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <osbind.h>
 #include "memory.h"
+#include "image.h"
 
 namespace AtariGraphics {
     struct AtariScreen
@@ -25,29 +26,18 @@ namespace AtariGraphics {
 
 
         AtariScreen();
-
         AtariScreen(uint32_t second_screen);
-        
         ~AtariScreen(void);
 
         void vblank(void) __attribute__((interrupt));
-
         void set_blank(void (* blank)(void));
-
         void (*get_blank(void))(void);
-
         uint32_t logbase(void);
-
         uint32_t physbase(void);
-
-        void set_log_screen(uint32_t address);
-
-        uint32_t get_log_screen(void);
-
+        void set_screen(Image * img);
+        Image* get_screen(void);
         void clear();
-
         void set();
-
         void cleanup(void);
     };
 }

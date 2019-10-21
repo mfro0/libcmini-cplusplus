@@ -18,7 +18,8 @@ SRCS= \
 	main.cpp \
 	image.cpp \
 	screen.cpp \
-	sprite.cpp
+	sprite.cpp \
+	degas_picture.cpp
 
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 

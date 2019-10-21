@@ -2,10 +2,10 @@
 #define DEGAS_PICTURE
 
 #include <cstddef>
-#include <cstdio>
+#include <cstdint>
 
-namespace {
-    // this structure actually matches the structure of a
+namespace AtariGraphics {
+    // this structure matches the format of a
     // DEGAS Elite picture (an enhanced version of the original Degas
     // application) that extends the original format by 32 bytes.
     // Trying to read an original Degas picture will most likely fail.
@@ -17,6 +17,7 @@ namespace {
         uint16_t right_color[4];
         uint16_t direction[4];
         uint16_t delay[4];
+    
     };
 
         
@@ -24,18 +25,12 @@ namespace {
         uint8_t filler[256 + offsetof(DegasPicture, picture_data)];
                                         // need to ensure we overallocate enough memory to align
                                         // the picture_data member to an address evenly divisable by 256
-                                        // (Atari ST hardware limitation)
+                                        // (Atari ST hardware limitation). This is meant to be able to set
+                                        // the ATARI video base address directly in the image data
         DegasPicture p;
     };
 
-    DegasPicture* degas_fix_address(const DegasPictureOverAllocated* overallocated) {
-        return reinterpret_cast<DegasPicture *>(((reinterpret_cast<uint32_t>(overallocated)
-                                                  + 256
-                                                  + offsetof(DegasPicture, picture_data))
-                                                  & 0xffffff00) -
-                                                  offsetof(DegasPicture, picture_data));
-                                                                               
-    }    
+    DegasPicture* fix_address(const DegasPictureOverAllocated* overallocated);
 
 }
 #endif // DEGAS_PICTURE
