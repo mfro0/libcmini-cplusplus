@@ -21,21 +21,21 @@ namespace {
         AtariGraphics::Image background("images/meadow.pi1");
 
         {
-        AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
-        
-        std::array<Coord, 4> anodes = {{ { 10, 10 },
-                                         { 10, 11 },
-                                         { 11, 11 },
-                                         { 12, 11 } }};
-        // decltype(auto) anodes = std::make_array({10, 10}, {10, 11});
-        SpriteAnimation an(bees, AnimationPath(anodes));
-        
-        while (Cconis())
-            Cconin();
+            AtariScreen screen(reinterpret_cast<uint32_t>(background.image_data()));
+            
+            std::array<Coord, 4> anodes = {{ { 10, 10 },
+                                            { 10, 11 },
+                                            { 11, 11 },
+                                            { 12, 11 } }};
+            // decltype(auto) anodes = std::make_array({10, 10}, {10, 11});
+            SpriteAnimation an(bees, AnimationPath(anodes));
+            
+            while (Cconis())
+                Cconin();
 
-        (void) Cconws("press anykey"); (void) Cconin();
+            (void) Cconws("press anykey"); (void) Cconin();
 
-        screen.cleanup();
+            screen.cleanup();
         }
     }
 }
