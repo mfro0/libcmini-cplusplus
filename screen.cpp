@@ -3,15 +3,11 @@
 namespace AtariGraphics
 {
     AtariScreen::AtariScreen() : active(0),
-                                 blank_routine(0L),
-                                 frontbuffer(physbase()),
-                                 backbuffer(physbase()) {
+                                 blank_routine(0L) {
     }
 
     AtariScreen::AtariScreen(uint32_t second_screen) : active(0),
-                                                       blank_routine(0L),
-                                                       frontbuffer(second_screen),
-                                                       backbuffer(physbase()) {
+                                                       blank_routine(0L) {
     }
 
     AtariScreen::~AtariScreen(void) {
@@ -29,14 +25,6 @@ namespace AtariGraphics
 
     void (* AtariScreen::get_blank(void))(void) {
         return blank_routine;
-    }
-
-    uint32_t AtariScreen::logbase(void) {
-        return reinterpret_cast<uint32_t>(Logbase());
-    }
-
-    uint32_t AtariScreen::physbase(void) {
-        return reinterpret_cast<uint32_t>(Physbase());
     }
 
     void AtariScreen::set_screen(Image *img) {

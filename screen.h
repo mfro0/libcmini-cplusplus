@@ -21,8 +21,6 @@ namespace AtariGraphics {
 
         uint16_t active;
         void (*blank_routine)(void);
-        uint32_t frontbuffer;
-        uint32_t backbuffer;
 
 
         AtariScreen();
@@ -32,8 +30,6 @@ namespace AtariGraphics {
         void vblank(void) __attribute__((interrupt));
         void set_blank(void (* blank)(void));
         void (*get_blank(void))(void);
-        uint32_t logbase(void);
-        uint32_t physbase(void);
         void set_screen(Image * img);
         Image* get_screen(void);
         void clear();
