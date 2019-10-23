@@ -34,7 +34,7 @@ CXXFLAGS=-fomit-frame-pointer \
 
 # for the global constructors to be called, we need to link libgcc twice
 # since __main() resides in libgcc.
-LDFLAGS=-s -lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc
+LDFLAGS=-s -lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc -Wl,-Map,mapfile
 
 all: $(TARGET)
 

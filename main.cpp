@@ -12,7 +12,6 @@
 #include "image.h"
 #include "sprite_animation.h"
 #include "rng.h"
-
 #include <iostream>
 
 namespace {
