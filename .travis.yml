@@ -19,9 +19,9 @@ before_install:
 - m68k-atari-mint-gcc --version
 - m68k-atari-mint-c++ --version
 - tar --version
-- wget $(curl -s https://api.github.com/repos/mfro0/libcmini/releases/latest | jq -r '.assets[].browser_download_url')
+- wget $(curl -s https://api.github.com/repos/mfro0/libcmini/releases/latest | jq -r '.assets[].browser_download_url') -O /tmp/libcmini.tar.gz
 - mkdir -p ../libcmini/build
-- pushd ../libcmini/build && tar -xvf /tmp/libcmini-0.48.tar.gz && ln -sf lib/startup.o
+- pushd ../libcmini/build && tar -xvf /tmp/libcmini.tar.gz && ln -sf lib/startup.o
   . && ln -sf lib/libcmini.a . && popd
 - ls -l ../libcmini/build
 script:
