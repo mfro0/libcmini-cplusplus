@@ -30,7 +30,7 @@ namespace AtariGraphics {
         void vblank(void) __attribute__((interrupt));
         void set_blank(void (* blank)(void));
         void (*get_blank(void))(void);
-        void set_screen(Image * img);
+        void set_screen(const Image &img);
         Image* get_screen(void);
         void clear();
         void set();
