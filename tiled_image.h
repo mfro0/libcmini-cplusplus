@@ -10,10 +10,11 @@
 namespace AtariGraphics {
     
     struct SpriteDefinition {
-        uint16_t SPRITE_WIDTH;
-        uint16_t SPRITE_HEIGHT;
+        const uint16_t SPRITE_WIDTH;
+        const uint16_t SPRITE_HEIGHT;
 
-        SpriteDefinition(uint16_t w, uint16_t h) : SPRITE_WIDTH(w), SPRITE_HEIGHT(h) {
+        SpriteDefinition(uint16_t w, uint16_t h) : SPRITE_WIDTH(w),
+                                                   SPRITE_HEIGHT(h) {
         }
     };
 
@@ -55,7 +56,7 @@ namespace AtariGraphics {
             // return start address of tile # tile_index
             // tiles are TILE_WIDTH pixels wide, image is IMAGE_WDWIDTH
             // words wide
-            return picture.picture_data + defs.SPRITE_WIDTH * BITS_PER_PIXEL / (sizeof(uint16_t) * 8);
+            return picture.picture_data + tile_index * defs.SPRITE_WIDTH * BITS_PER_PIXEL / (sizeof(uint16_t) * 8);
         }
     };
 }
