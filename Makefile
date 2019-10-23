@@ -39,7 +39,7 @@ LDFLAGS=-s -lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc
 all: $(TARGET)
 
 $(TARGET):$(OBJS)
-	echo $(OBJS)
+	echo $(OBJS) $(LIBCMINI_INCLUDE)
 	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
 	$(STACK) -S $(STACKSIZE) $(TARGET)
 	$(FLAGS) --mno-fastram --mno-fastalloc $(TARGET)
