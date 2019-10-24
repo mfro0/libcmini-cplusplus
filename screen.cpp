@@ -28,7 +28,7 @@ namespace AtariGraphics
     }
 
     void AtariScreen::set_screen(const Image & img) {
-        uint32_t address = reinterpret_cast<uint32_t>(&img);
+        uint32_t address = reinterpret_cast<uint32_t>(img.image->picture_data);
 
         memory8(dbaseh) = (address >> 16) & 0xff;
         memory8(dbasel) = (address >> 8) & 0xff;
