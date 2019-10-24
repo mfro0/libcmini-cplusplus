@@ -12,8 +12,8 @@
 namespace AtariGraphics {
     struct AtariScreen
     {
-        static constexpr uint32_t _vbashi = 0xff8201UL;
-        static constexpr uint32_t _vbaslo = 0xff9203UL;
+        static constexpr uint32_t dbaseh = 0xff8201UL;
+        static constexpr uint32_t dbasel = 0xff8203UL;
 
         static constexpr size_t SIZE = 32 * 1000;
         

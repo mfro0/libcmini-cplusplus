@@ -30,12 +30,12 @@ namespace AtariGraphics
     void AtariScreen::set_screen(const Image & img) {
         uint32_t address = reinterpret_cast<uint32_t>(&img);
 
-        memory8(_vbashi) = (address >> 16) & 0xff;
-        memory8(_vbaslo) = (address >> 8) & 0xff;
+        memory8(dbaseh) = (address >> 16) & 0xff;
+        memory8(dbasel) = (address >> 8) & 0xff;
     }
 
     Image* AtariScreen::get_screen(void) {
-        Image* address = reinterpret_cast<Image*>(memory8(_vbashi) << 16 | memory8(_vbaslo) << 8);
+        Image* address = reinterpret_cast<Image*>(memory8(dbaseh) << 16 | memory8(dbasel) << 8);
         return address;
     }
 
