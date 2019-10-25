@@ -38,7 +38,7 @@ LDFLAGS=-s -lstdc++ -L$(LIBCMINI_LIB) -lgcc -lcmini -lgcc -Wl,-Map,mapfile
 
 all: $(TARGET)
 
-$(TARGET):$(OBJS)
+$(TARGET):$(OBJS) depend
 	echo $(OBJS) $(LIBCMINI_INCLUDE)
 	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
 	$(STACK) -S $(STACKSIZE) $(TARGET)

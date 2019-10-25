@@ -26,12 +26,11 @@ namespace AtariGraphics {
         AtariScreen();
         AtariScreen(uint32_t second_screen);
         ~AtariScreen(void);
-
+        uint32_t old_address;
         void vblank(void) __attribute__((interrupt));
         void set_blank(void (* blank)(void));
         void (*get_blank(void))(void);
         void set_screen(const Image &img);
-        Image* get_screen(void);
         void clear();
         void set();
         void cleanup(void);

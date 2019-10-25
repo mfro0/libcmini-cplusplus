@@ -28,8 +28,6 @@ namespace {
                                          { 12, 11 } }};
         // decltype(auto) anodes = std::make_array({10, 10}, {10, 11});
         SpriteAnimation an(bees, AnimationPath(anodes));
-
-        std::cout << "address=" << std::hex << reinterpret_cast<uint32_t>(screen.get_screen());
           
         screen.set_screen(background);
         while (Cconis())

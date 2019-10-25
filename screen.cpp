@@ -30,13 +30,9 @@ namespace AtariGraphics
     void AtariScreen::set_screen(const Image & img) {
         uint32_t address = reinterpret_cast<uint32_t>(img.image->picture_data);
 
+        old_address = memory8(dbaseh) << 16 | memory8(dbasel) << 8;
         memory8(dbaseh) = (address >> 16) & 0xff;
         memory8(dbasel) = (address >> 8) & 0xff;
-    }
-
-    Image* AtariScreen::get_screen(void) {
-        Image* address = reinterpret_cast<Image*>(memory8(dbaseh) << 16 | memory8(dbasel) << 8);
-        return address;
     }
 
     void AtariScreen::clear() {
@@ -48,6 +44,7 @@ namespace AtariGraphics
     }
 
     void AtariScreen::cleanup(void) {
-        // Setscreen(frontbuffer, frontbuffer, -1);
+        memory8(dbaseh) = (old_address >> 16) & 0xff;
+        memory8(dbasel) = (old_address >> 8) & 0xff;
     }
 }
