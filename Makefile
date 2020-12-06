@@ -15,6 +15,7 @@ TARGET=mini++.prg
 TARGETM=miniml.prg
 
 SRCS= \
+	libcmini_kludge.cpp \
 	main.cpp \
 	image.cpp \
 	screen.cpp \
@@ -40,7 +41,7 @@ all: $(TARGET)
 
 $(TARGET):$(OBJS) depend
 	echo $(OBJS) $(LIBCMINI_INCLUDE)
-	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/startup.o $(OBJS) $(LDFLAGS) -o $@ 
+	$(CXX) $(CXXFLAGS) $(LIBCMINI_LIB)/crt0.o $(OBJS) $(LDFLAGS) -o $@ 
 	$(STACK) -S $(STACKSIZE) $(TARGET)
 	$(FLAGS) --mno-fastram --mno-fastalloc $(TARGET)
 
