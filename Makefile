@@ -4,6 +4,7 @@ LIBCMINI_LIB=$(LIBCMINI)/build/
 
 TOOLCHAIN_PREFIX=m68k-atari-mint
 CXX=$(TOOLCHAIN_PREFIX)-c++
+CC=$(TOOLCHAIN_PREFIX)-gcc
 
 DEPEND=depend 
 
@@ -14,7 +15,7 @@ FLAGS=$(TOOLCHAIN_PREFIX)-flags
 TARGET=mini++.prg
 TARGETM=miniml.prg
 
-SRCS= \
+CPPSRCS= \
 	libcmini_kludge.cpp \
 	main.cpp \
 	image.cpp \
@@ -22,15 +23,28 @@ SRCS= \
 	sprite.cpp \
 	degas_picture.cpp
 
-OBJS = $(patsubst %.cpp, %.o, $(SRCS))
+CPPOBJS = $(patsubst %.cpp, %.o, $(CPPSRCS))
+
+CSRCS = \
+	natfeats.c
+	
+COBJS = $(patsubst %.c,%.o,$(CSRCS))
+
+ASRCS = \
+	nf_asm.S
+	
+AOBJS = $(patsubst %.S,%.o,$(ASRCS))
+
+OBJS = $(CPPOBJS) $(COBJS) $(AOBJS)
 
 CXXFLAGS=-fomit-frame-pointer \
-    -Wall \
+	-Wall \
 	-O2 \
 	--no-exceptions \
 	--no-rtti \
 	-std=c++0x \
-	-nostdlib
+	-nostdlib \
+	-DGLIBCXX_NOEXCEPT
 
 
 # for the global constructors to be called, we need to link libgcc twice
@@ -53,6 +67,12 @@ $(TARGETM):$(OBJS)
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@
 
+%.o%.c:
+	$(CC) -c -I$(LIBCMINI_INCLUDE) $< -o $@
+
+%.o%.S:
+	$(CC) -c $< -o $@
+	
 .PHONY: clean
 clean:
 	- rm -f $(OBJS) $(TARGET) $(TARGETM) $(DEPEND)
@@ -60,7 +80,7 @@ clean:
 strip: $(TARGET) $(TARGETM)
 	$(TOOLCHAIN_PREFIX)-strip $?
 
-$(DEPEND): $(SRCS)
+$(DEPEND): $(CPPSRCS) $(CSRCS)
 	- rm -f $(DEPEND)
 	$(CXX) $(CXXFLAGS) -I$(LIBCMINI_INCLUDE) -M $? >> $(DEPEND)
 
