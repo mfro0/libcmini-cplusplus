@@ -10,6 +10,10 @@
  * option any later version.  See doc/license.txt for details.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if __GNUC__
 # include <mint/osbind.h>
 #else	/* VBCC/AHCC/Pure-C */
@@ -181,4 +185,7 @@ int main()
     return 0;
 }
 
+#endif
+#ifdef __cplusplus
+}
 #endif

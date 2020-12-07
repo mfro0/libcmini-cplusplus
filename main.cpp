@@ -14,7 +14,14 @@
 #include "rng.h"
 #include <iostream>
 
-
+#define DEBUG
+#ifdef DEBUG
+#include "natfeats.h"
+#define dbg(format, arg...) do { nf_printf("DEBUG: (%s):" format, __FUNCTION__, ##arg); } while (0)
+#define out(format, arg...) do { nf_printf("" format, ##arg); } while (0)
+#else
+#define dbg(format, arg...) do { ; } while (0)
+#endif /* DEBUG */
 
 namespace {
     using namespace AtariGraphics;
@@ -43,6 +50,7 @@ namespace {
 
 
 int main() {
+    dbg("need a natfeats printout before going into supervisor mode\n");
     Supexec(anim);
 }
 

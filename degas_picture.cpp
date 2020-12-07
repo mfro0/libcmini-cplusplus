@@ -7,7 +7,6 @@ namespace AtariGraphics {
                                                   + 256
                                                   + offsetof(DegasPicture, picture_data))
                                                   & 0xffffff00) -
-                                                  offsetof(DegasPicture, picture_data));
-                                                                               
-    }    
-}   
+                                                  offsetof(DegasPicture, picture_data));                                                                          
+    }
+}
