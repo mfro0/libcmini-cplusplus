@@ -19,6 +19,7 @@ before_install:
 - m68k-atari-mint-gcc --version
 - m68k-atari-mint-c++ --version
 - tar --version
+
 script:
  pushd ..; git clone https://github.com/freemint/libcmini; cd libcmini; make all -j; popd
 - make clean
