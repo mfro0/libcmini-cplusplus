@@ -21,7 +21,7 @@ before_install:
 - tar --version
 
 script:
- pushd ..; git clone https://github.com/freemint/libcmini; cd libcmini; make all -j; popd
+- pushd ..; git clone https://github.com/freemint/libcmini; cd libcmini; make all -j; popd
 - make clean
 - make strip
 - make release
