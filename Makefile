@@ -13,7 +13,6 @@ STACKSIZE=360K
 FLAGS=$(TOOLCHAIN_PREFIX)-flags 
 
 TARGET=mini++.prg
-TARGETM=miniml.prg
 
 CPPSRCS= \
 	libcmini_kludge.cpp \
@@ -59,11 +58,6 @@ $(TARGET):$(OBJS) depend
 	$(STACK) -S $(STACKSIZE) $(TARGET)
 	$(FLAGS) --mno-fastram --mno-fastalloc $(TARGET)
 
-# link with mintlib for comparision
-$(TARGETM):$(OBJS)
-	$(CXX) -o $@ $?
-	$(STACK) -S $(STACKSIZE) $@
-
 %.o%.cc:
 	$(CXX) -c -I$(LIBCMINI_INCLUDE) $< -o $@
 
@@ -75,9 +69,9 @@ $(TARGETM):$(OBJS)
 	
 .PHONY: clean
 clean:
-	- rm -f $(OBJS) $(TARGET) $(TARGETM) $(DEPEND)
+	- rm -f $(OBJS) $(TARGET) $(DEPEND)
 
-strip: $(TARGET) $(TARGETM)
+strip: $(TARGET)
 	$(TOOLCHAIN_PREFIX)-strip $?
 
 $(DEPEND): $(CPPSRCS) $(CSRCS)
